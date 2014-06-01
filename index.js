@@ -20,8 +20,8 @@ function RecentTracksStream (options) {
 	this.apiKey = options.apiKey;
 	this.user = options.user;
 	this.reverse = options.reverse || false;
-	this.from = options.from || null;
-	this.to = options.to || null;
+	this.from = (options.from) ? Math.round(options.from / 1000) : null;
+	this.to = (options.to) ? Math.round(options.to / 1000) : null;
 	this.tracksPerRequest = options.tracksPerRequest || 100;
 	this.requestsPerMinute = options.requestsPerMinute || 60;
 	this.errorDelay = options.errorDelay || 60000;
@@ -68,10 +68,16 @@ RecentTracksStream.prototype.getNext = function () {
 		this.rateLimit(function () {
 			this.api.user.getRecentTracks({
 				user: this.user,
+				from: this.from,
+				to: this.to,
 				limit: this.tracksPerRequest
 			}, function (err, response) {
 				if (err) {
-					return setTimeout(this.getNext.bind(this), 10000);
+					return this.push(null);
+				}
+
+				if (parseInt(response['@attr'].total, 10) < 1) {
+					return this.push(null);
 				}
 
 				this.totalPages = parseInt(response['@attr'].totalPages, 10);
@@ -101,6 +107,8 @@ RecentTracksStream.prototype.getNext = function () {
 	this.rateLimit(function () {
 		this.api.user.getRecentTracks({
 			user: this.user,
+			from: this.from,
+			to: this.to,
 			limit: this.tracksPerRequest,
 			page: this.currentPage
 

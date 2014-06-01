@@ -18,6 +18,12 @@ npm install lastfmexportstream --save
    in chronological order, i.e. oldest scrobble first.
    If `reverse: true` the scrobbles will be fetched in reverse order,
    i.e. latest scrobble first.
+ - `from`: (optional) A UTC unix timestamp in milliseconds representing
+    the date of the earliest scrobble you want. If this option is not
+    present the stream will start from the first scrobble.
+ - `to`: (optional) A UTC unix timestamp in milliseconds representing
+    the date of the latest scrobble you want. If this option is not
+    present the stream will end with the latest scrobble.
  - `tracksPerRequest`: (optional, default: 100, max: 200) The number of
    tracks to be fetched per request.
  - `requestsPerMinute`: (optional, default: 60) The maximum number of
