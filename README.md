@@ -55,9 +55,9 @@ The rest is rather self explanatory.
 
 ```javascript
 var through = require('through2');
-var RecentTracksStream = require('lastfmexportstream');
+var LastfmExportStream = require('lastfmexportstream');
 
-var soma7soul = new RecentTracksStream({
+var soma7soul = new LastfmExportStream({
   apiKey: 'YOUR_LASTFM_API_KEY',
   user: 'soma7soul'
 });
