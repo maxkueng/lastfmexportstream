@@ -1,6 +1,6 @@
 {
   "name": "lastfmexportstream",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A readable object stream of a Last.fm user's scrobble history",
   "main": "index.js",
   "repository": {

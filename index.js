@@ -32,6 +32,8 @@ function RecentTracksStream (options) {
 		api_key: this.apiKey
 	});
 
+	this.totalTracks = null;
+	this.trackCount = 0;
 	this.totalPages = null;
 	this.currentPage = null;
 	this.trackBuffer = [];
@@ -80,6 +82,7 @@ RecentTracksStream.prototype.getNext = function () {
 					return this.push(null);
 				}
 
+				this.totalTracks = parseInt(response['@attr'].total, 10);
 				this.totalPages = parseInt(response['@attr'].totalPages, 10);
 				this.currentPage = this.reverse ? 1 : this.totalPages;
 
@@ -93,6 +96,7 @@ RecentTracksStream.prototype.getNext = function () {
 	var nextTrack = this.trackBuffer.shift();
 
 	if (nextTrack) {
+		this.trackCount += 1;
 		return this.push(nextTrack);
 	}
 

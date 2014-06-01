@@ -31,6 +31,15 @@ npm install lastfmexportstream --save
  - `errorDelay`: (optional, default: 10000) The number of milliseconds
    to wait until the next request if an error occurs.
 
+### Check progress
+
+Use the `.totalTracks` and `.trackCount` properties to check the 
+progress of the stream.
+
+```javascript
+progress = ((stream.trackCount / stream.totalTracks) * 100) + '%';
+```
+
 ### Track format
 
  - `time`: A UTC unix timestamp in milliseconds. Represents the time of
